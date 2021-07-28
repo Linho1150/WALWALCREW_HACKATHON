@@ -18,9 +18,11 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 import question.views
+import communication.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',question.views.question,name='question')
+    path('',question.views.question,name='question'),
+    path('communication/',communication.views.list,name='communication')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
