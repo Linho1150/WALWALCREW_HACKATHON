@@ -23,7 +23,8 @@ import communication.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',question.views.question,name='question'),
-    path('communication/',communication.views.list,name='communication'),
-    path('communication_add/',communication.views.add,name='communication_add')
+    path('comm/',communication.views.list,name='communication'),
+    path('comm_add/',communication.views.add,name='communication_add'),
+    path('comm/<int:question_id>',communication.views.detail,name='comm_detail')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

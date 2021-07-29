@@ -1,7 +1,7 @@
 from typing import Text
 from django.shortcuts import render
 from .models import question_list
-
+from django.core import serializers
 
 # Create your views here.
 def list(request):
@@ -21,3 +21,8 @@ def add(request):
             return render(request, 'index.html')  
     else:
         return render(request,'index.html')
+
+def detail(request,question_id):
+    questions = serializers.serialize("json", question_list.objects.filter(id=question_id))
+    data = {"questions": questions}
+    return render(request,'sub.html',data)
