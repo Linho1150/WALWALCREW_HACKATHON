@@ -9,10 +9,11 @@
 <body>
     <form method="POST" class="post-form" action="#">  
         {% csrf_token %}  
-        <input type="text" name="cateogry" value=""/>
-        <input type="text" name="title" value=""/>
-        <input type="text" name="text" value=""/>
-        <input type="text" name="answer" value=""/>
+        <input type="text" name="cateogry" value="" placeholder="category"/>
+        <input type="text" name="title" value="" placeholder="title"/>
+        <input type="text" name="text" value="" placeholder="text"/>
+        <input type="text" name="nickname" value="" placeholder="nickname"/>
+        <input type="text" name="answer" value=""placeholder="answer"/>
         <div class="form-group">
             <button type="submit" class="btn btn-default">Submit</button> 
         </div>

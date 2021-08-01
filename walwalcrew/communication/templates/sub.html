@@ -53,16 +53,19 @@
           <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
         </div>
         <div class="question" id="question"></div>
-        <div class="answer" id="answer">
-          {{questions}}
-        </div>
+        <div class="answer" id="answer"></div>
       </div>
     </div>
+    {% for tmp in comment %}
+      <h1>제목 : {{tmp.text}}</h1>
+    {% endfor %}
   </main>
   <footer>
     <img src="/static/img/ad.png" style="width:60%" onclick="load();"/>
   </footer>
   <script>
+    
+
     function load(){
       location.href="https://www.animal.go.kr/front/community/show.do?boardId=contents&seq=53&menuNo=1000000058";
     }
@@ -75,6 +78,8 @@
     var arrBtn = new Array();
     window.onload=function (){
       var original_data=JSON.parse('{{ questions | safe }}');
+      //var original_commentdata=JSON.parse('{{ comment | safe }}');
+      //alert(original_commentdata[0].fields.text);
       category=original_data[0].fields.cateogry;
       title=original_data[0].fields.title;
       text=original_data[0].fields.text;
