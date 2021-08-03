@@ -1,5 +1,5 @@
 from typing import Text
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Comment, question_list
 from django.core import serializers
 
@@ -11,7 +11,10 @@ def list(request):
 
 def add(request):
     if request.method == 'POST':
+        print("여기까지옴")
+        print(request.POST)
         if request.POST.get('title') and request.POST.get('nickname') and request.POST.get('text') and request.POST.get('cateogry') and request.POST.get('answer'):
+            print("대박")
             post=question_list()
             post.cateogry= request.POST.get('cateogry')
             post.title= request.POST.get('title')
@@ -19,7 +22,7 @@ def add(request):
             post.text= request.POST.get('text')
             post.answer= request.POST.get('answer')
             post.save()
-            return render(request, 'index.html')  
+            return redirect('/comm/')
     else:
         return render(request,'index.html')
 
