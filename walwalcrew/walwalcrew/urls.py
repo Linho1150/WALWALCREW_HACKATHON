@@ -26,6 +26,8 @@ urlpatterns = [
     path('comm/',communication.views.list,name='communication'),
     path('comm_add/',communication.views.add,name='communication_add'),
     path('comm/<int:question_id>',communication.views.detail,name='comm_detail'),
-    path('pass/<int:passnum>',question.views.question_pass,name='question_pass')
+    path('pass/<int:passnum>',question.views.question_pass,name='question_pass'),
+    path('fail',question.views.question_fail,name='question_fail')
+
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

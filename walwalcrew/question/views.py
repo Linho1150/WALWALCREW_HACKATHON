@@ -13,12 +13,15 @@ def question(request):
     data = {"questions": questions}
     return render(request,'question.html',data)
 
+def question_fail(request):
+    return render(request,'fail.html');
+
 def question_pass(request,passnum):
     module_dir = os.path.dirname(__file__)
-    text1 = "leejaejun"
-    text2 = "20210820"
-    text3 = "19827389123"
-    text4 = "leejaejun"
+    text1 = "walwal"
+    text2 = "20210806"
+    text3 = "1234"
+    text4 = "walwalcrew"
 
     img = cv2.imread(os.path.join(module_dir+'\\templates\\blank.jpg'), cv2.IMREAD_COLOR)
 

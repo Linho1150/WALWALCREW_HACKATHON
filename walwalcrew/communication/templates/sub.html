@@ -39,19 +39,8 @@
     </div>
   </nav>
   <main>
-    <div class="controller">
-      <button id="prev"onclick="prev()" style="position: absolute;top: 50%; left:0%;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 이전문제</button>
-      <button id="next" onclick="next()" style="position: absolute;top: 50%; right: 0%;">다음문제 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>  
-    </div>
     <div class="container">
       <div class="container container-main">
-        <div class="imgGroup">
-          <img id="dangdang" style="width:10%;position:absolute;left: 0%;" src="/static/img/puppy.png"/>
-          <img style="width:10%;position:absolute;left: 95%;" src="/static/img/puppy_house.png"/>
-        </div>
-        <div class="progress">
-          <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"></div>
-        </div>
         <div class="question" id="question"></div>
         <div class="answer" id="answer"></div>
       </div>
@@ -107,19 +96,8 @@
       }
    }
     function item(id) {
-      for(var tmp=0;tmp<arrBtn.length;tmp++){
-        if(tmp==id){
-          arrBtn[tmp].style.background="#3C64B1";
-          arrBtn[tmp].style.color="#ffffff";
-          arrBtn[tmp].style.border="2px solid #3C64B1";
-          chkAnswer=tmp;
-        }
-        else{
-          arrBtn[tmp].style.background="#ffffff";
-          arrBtn[tmp].style.color="#3C64B1";
-          arrBtn[tmp].style.border="2px solid #3C64B1";
-        }
-      }
+      chkAnswer=id;
+      next();
     }
     function prev() {
     var btn=document.getElementById("prev");
@@ -133,20 +111,7 @@
       }
     }
     function next() {
-      if(chkAnswer<0){
-          //응답안함
-          alert("응답해주세요.");
-      }
-      else if(chkAnswer>=0){
-          //정상
-          var imgDangDang=document.getElementById("dangdang");
-          var progress=document.getElementById("progress");
-          var percent_dog="95%";
-          var percent_bar="95%";
-          progress.style.width=percent_bar;
-          imgDangDang.style.left=percent_dog;
-          checkanswer(chkAnswer);
-      }
+      checkanswer(chkAnswer);
     }
     function checkanswer(chkAnswer){      
         arrBtn[0].style.opacity="0";
@@ -171,9 +136,6 @@
         goNext();
     }
     function goNext(){
-      var next=document.getElementById("next");
-      next.disabled = true;
-
       var total = 0;
       var max = 0;
       var maxBtn = 0;

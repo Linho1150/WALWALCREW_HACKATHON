@@ -11,10 +11,7 @@ def list(request):
 
 def add(request):
     if request.method == 'POST':
-        print("여기까지옴")
-        print(request.POST)
         if request.POST.get('title') and request.POST.get('nickname') and request.POST.get('text') and request.POST.get('cateogry') and request.POST.get('answer'):
-            print("대박")
             post=question_list()
             post.cateogry= request.POST.get('cateogry')
             post.title= request.POST.get('title')
