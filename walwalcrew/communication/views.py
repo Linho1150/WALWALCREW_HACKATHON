@@ -27,4 +27,16 @@ def detail(request,question_id):
     questions = serializers.serialize("json", question_list.objects.filter(id=question_id))
     comment = Comment.objects.filter(question_id=question_id)
     data = {"questions": questions, "comment":comment}
-    return render(request,'sub.html',data)
+    if request.method == 'POST':
+        if request.POST.get('text') and request.POST.get('nickname'):
+            post=Comment()
+            post.nickname= request.POST.get('nickname')
+            post.text= request.POST.get('text')
+            post.question_id=question_list(id=question_id)
+            post.like=0
+            post.unlike=0
+            post.save()
+            return render(request,'sub.html',data)
+    else:
+        return render(request,'sub.html',data)
+    

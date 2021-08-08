@@ -1,3 +1,14 @@
+  @keyframes fadeIn {
+    0% {
+      opacity : 0;
+    }
+    30%{
+      opacity: 0;
+    }
+    100% {
+      opacity : 1;
+    }
+  }
   .navbar{
     background-color: #ffffff;
   }
@@ -35,7 +46,7 @@
   .answer{
     display: flex;
     flex-direction: column;
-    margin-bottom: 130px;
+    margin-bottom: 50px;
   }
   .answer button{
     margin:1%;
@@ -84,7 +95,7 @@
   }
   .container-main{
     width: 80%;
-    margin-top: 5rem;
+    margin-top: 3rem;
   }
   html {
     position: relative;
@@ -100,4 +111,86 @@
   }
   .navbar-nav li a:hover{
     color: #3C64B1;
+  }
+  .comment_input{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  #comment_textarea{
+  resize: none; width: 100%; height: 100px; background-color: #fffefeaf; padding: 1.5vmin;
+  }
+  
+  textarea::placeholder {
+  color: #5B5A5A;
+  font-weight: bold;
+  font-size: 15px;
+  }
+  
+  #button{
+            display: flex;
+            Justify-content: center;
+            align-items: center;
+            background: #3C64B1;
+            width: 95px;
+            height: 35px;
+            color: #fff;  
+            border: 1px solid #3C64B1;
+            font-family: Mulish;
+            font-size: 14px;
+            margin-top: 10px ;
+  }
+  
+  .comment_ranking{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px
+  }
+  
+  .comment_info{
+    display: flex;
+  }
+  
+  .img_like{
+    display: flex;
+    font-family: Mulish; 
+    font-weight: bold; 
+    padding: 2px 3px ;
+    align-items: flex-end;
+  
+  }
+  .comment_and_like{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0px 0px 10px 0px;
+  }
+  
+  #like{
+  width:40px; padding: 2px 3px; 
+  }
+  #unlike{
+  width:40px; transform:rotate(180deg); padding: 2px 3px ;
+  }
+  #like_number{
+  font-family: Mulish; font-weight: bold; padding: 2px 3px ; align-items: flex-end;
+  }
+  #unlike_number{
+  font-family: Mulish; font-weight: bold; padding: 2px 3px; align-items: flex-end;
+  }
+  
+  #delete_button{
+    display: flex;
+    float: center;
+    Justify-content: center;
+    align-items: center;
+    background: #D3335A;
+    width: 95px;
+    height: 35px;
+    color: #fff;  
+    border: 1px solid #D3335A;
+    font-family: Mulish;
+    font-size: 14px;
+    margin-top: 20px ;
   }

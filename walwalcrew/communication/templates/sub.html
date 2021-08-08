@@ -43,22 +43,64 @@
       <div class="container container-main">
         <div class="question" id="question"></div>
         <div class="answer" id="answer"></div>
+
+        <div id="commentTab" style="visibility: hidden;margin-bottom: 10%;opacity:1;animation-name: fadeIn;animation-duration: 5s;">
+          <p style="font-family: Mulish; font-weight: bold; font-size: 15px; color: #5B5A5A; "> 댓글</p>
+
+          <div class ="comment_input">
+            <textarea id="comment_textarea" placeholder="우리 집 강아지는 어떤가요? 댓글을 남겨주세요 !" rows="3"></textarea>
+            <form id="myfrom" method="POST">{% csrf_token %}  
+            <div hidden>
+              <input type="text" id="text" value="" name="text"/>
+              <input type="text" id="nickname" value="" name="nickname"/>
+            </div>
+            <button id="button" type="submit">등록</button>
+            </form>
+          </div>
+        
+          <div class="comment_ranking">
+            <a style="color: #3f3a3a ; padding-right: 10px;"> 추천순 </p> 
+            <a style="color: #999696 ;"> 최신순 </p>
+          </div>
+          {% for tmp in comment %}
+          <div class="comment_item">
+            <div class="comment_info">
+              <a style="font-family: Mulish;font-weight: bold; font-size: 15px; margin: 2px 3px ; color: black;" >{{tmp.nickname}}</a>
+              <a style="font-family: Mulish; font-size: 15px; margin: 2px 3px; color: #817d7d ;">{{tmp.date}}</a>
+            </div>
+          
+            <div class="comment_and_like">
+              <a style="display: flex;word-break:break-all;word-wrap:break-word; align-items: flex-end;color: black;vertical-align:top;">{{tmp.text}}</a>
+                <div class="img_like">
+                  <img id="like" style="width:30px; padding: 2px 3px; " src="../static/img/like.png"/>
+                  <a id="like_number">{{tmp.like}}</a>
+                  <img id="unlike" style="width:30px; transform:rotate(180deg); padding: 2px 3px;" src="../static/img/like.png"/>
+                  <a id="unlike_number">{{tmp.unlike}}</a>
+                </div>
+            </div> 
+          </div>
+          {% endfor %}
+          <button id="delete_button">글 삭제하기</button>
+        </div>
       </div>
     </div>
-    {% for tmp in comment %}
-      <h1>제목 : {{tmp.text}}</h1>
-    {% endfor %}
   </main>
-  <footer>
-    <img src="/static/img/ad.png" style="width:60%" onclick="load();"/>
-  </footer>
   <script>
-    
-
+    $('#myfrom').submit(function(){
+        submit_click();
+        return true;
+    });
+    function submit_click(){
+      var text=document.getElementById("text");
+      var nick=document.getElementById("nickname");
+      text.value= $('textarea#comment_textarea').val();
+      nick.value = '임시';
+    }
     function load(){
       location.href="https://www.animal.go.kr/front/community/show.do?boardId=contents&seq=53&menuNo=1000000058";
     }
     var category = "";
+    var chk=0;
     var title = "";
     var text = "";
     var intBtn = 0;
@@ -67,8 +109,6 @@
     var arrBtn = new Array();
     window.onload=function (){
       var original_data=JSON.parse('{{ questions | safe }}');
-      //var original_commentdata=JSON.parse('{{ comment | safe }}');
-      //alert(original_commentdata[0].fields.text);
       category=original_data[0].fields.cateogry;
       title=original_data[0].fields.title;
       text=original_data[0].fields.text;
@@ -96,8 +136,12 @@
       }
    }
     function item(id) {
-      chkAnswer=id;
-      next();
+      document.getElementById("commentTab").style.visibility = 'visible';
+      if(chk==0){
+        chkAnswer=id;
+        next();
+        chk=1;
+      }  
     }
     function prev() {
     var btn=document.getElementById("prev");
