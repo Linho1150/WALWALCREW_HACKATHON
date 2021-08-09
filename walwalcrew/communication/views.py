@@ -48,6 +48,12 @@ def detail(request,question_id):
             finger.save()
             return render(request,'sub.html',data)
 
+        elif request.POST.get('unfinger_id') and request.POST.get('unfinger_text'):
+            finger = Comment.objects.get(id=request.POST.get('unfinger_id'))
+            finger.unlike = int(request.POST.get('unfinger_text'))+1
+            finger.save()
+            return render(request,'sub.html',data)
+
         elif request.POST.get('cnt'):
             vote = question_list.objects.get(id=question_id)
             oriText = question_list.objects.get(id=question_id).answer

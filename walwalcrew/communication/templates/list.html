@@ -33,14 +33,7 @@
             </div>
             <button id="quiz" onmouseout="change3(this)" onmouseover="change4(this)" onclick="location.href='/comm_add'">퀴즈 만들기</button>
         </div>
-        <hr />
-        <div class="jo">
-            <div id="tw">
-                <div id="soon">조회순</div>
-                <div id="shin">최신순</div>
-            </div>
-            <div id="jjj">작성자/작성일</div>
-        </div>
+        <hr style="margin-bottom: 0;">
         <br>
         <div class="group" style="display:flex;flex-direction:column;">
             {% for question in questions_list %}

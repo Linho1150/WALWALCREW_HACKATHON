@@ -81,17 +81,9 @@
         </div>
       </div>
     </div>
-    <from id="finger" method="POST">
-      {% csrf_token %}
-      <div hidden>
-        <input type="text" id="finger_text" value="" name="finger_text"/>
-        <input type="text" id="finger_id" value="" name="finger_id"/>
-      </div>
   </main>
   <script>
     function like(id,like){
-      var finger_text = document.getElementById('finger_text');
-      var finger_id = document.getElementById('finger_id');
       $.ajax({
         type: 'POST',
         data: {
@@ -102,8 +94,16 @@
         }
       });
     }
-    function unlike(id){
-
+    function unlike(id,unlike){
+      $.ajax({
+        type: 'POST',
+        data: {
+        unfinger_id:id,
+        unfinger_text:unlike},
+        success: function(){
+          $("#commentTab").load(location.href+" #commentTab>*","");
+        }
+      });
     }
     function submit_click(){
       $.ajax({
@@ -184,8 +184,8 @@
     function next() {
       checkanswer(chkAnswer);
     }
-    function checkanswer(chkAnswer){   
-        for(var i=0;i<intBtn;i++){
+    function checkanswer(chkAnswer){ 
+        for(var i=0;i<=intBtn;i++){
           arrBtn[i].style.opacity="0";
           arrBtn[i].style.background="#32bb6b";
           arrBtn[i].style.border="2px solid #32bb6b";
@@ -201,6 +201,7 @@
       for(var tmpTotal=0;tmpTotal<answer.length;tmpTotal++){
         total+=parseInt(answer[tmpTotal]);
         if(answer[tmpTotal]>=max){
+          max=answer[tmpTotal];
           maxBtn=tmpTotal;
         }
       }
@@ -215,7 +216,7 @@
     }
     function setButton(strItem,tmpInt,cnt) 
     {
-        arrBtn[tmpInt].style.opacity=(parseInt(answer[tmpInt])/40).toFixed(2);
+        arrBtn[tmpInt].style.opacity=(parseInt(answer[tmpInt])/40+0.3).toFixed(2);
         arrBtn[tmpInt].innerHTML=strItem + " : " + answer[tmpInt]+"%";
     }
   </script>
