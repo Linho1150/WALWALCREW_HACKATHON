@@ -40,7 +40,7 @@
   </nav>
   <main>
     <div class="controller">
-      <button id="prev"onclick="prev()" style="position: absolute;top: 50%; left:0%;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 이전문제</button>
+      <button id="prev"onclick="prev()" style="position: absolute;top: 50%; left:0%;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 돌아가기</button>
       <button id="next" onclick="next()" style="position: absolute;top: 50%; right: 0%;">다음문제 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>  
     </div>
     <div class="container">
@@ -157,15 +157,7 @@
     }
     function prev()
     {
-      var btn=document.getElementById("prev");
-      if(btn.style.color != "rgb(255, 255, 255)"){
-        btn.style.background="#D3335A";
-        btn.style.color="#ffffff";
-      }
-      else{
-        btn.style.background="#ffffff";
-        btn.style.color="#D3335A";
-      }
+      location.href='/';
     }
     function next() {
       if(chkAnswer<0){
