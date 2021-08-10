@@ -1,47 +1,37 @@
+from accounts.models import nickname_list
+from accounts.models import authentication
 from django.http import request
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from .models import question as question_model
 from django.core import serializers
+from django.shortcuts import get_object_or_404, render
+import requests
 import cv2
 import base64
-import os
+from .getProfile import get
 
 # Create your views here.
 def question(request):
-    #questions =  question_model.objects.values()
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    if request.method == 'POST':
+        if request.POST.get('pass'):
+            auth_text=get(request)
+            auth_id=get_object_or_404(nickname_list, kakaoid=auth_text['id']).id
+            auth=authentication()
+            auth.authentication_id=nickname_list(id=auth_id)
+            auth.authentication_email=auth_text['email']
+            auth.save()
+            return HttpResponse('/pass')
     questions = serializers.serialize("json", question_model.objects.all())
-    data = {"questions": questions}
+    data = {"questions": questions, "check":_context['check']}
     return render(request,'question.html',data)
 
 def question_fail(request):
-    return render(request,'fail.html');
+    _context = {'check':False}
+    if request.session.get('access_token'):
+        _context['check'] = True
+    return render(request,'failure.html',{"check":_context['check']})
 
-def question_pass(request,passnum):
-    module_dir = os.path.dirname(__file__)
-    text1 = "walwal"
-    text2 = "20210806"
-    text3 = "1234"
-    text4 = "walwalcrew"
-
-    img = cv2.imread(os.path.join(module_dir+'\\templates\\blank.jpg'), cv2.IMREAD_COLOR)
-
-    font = cv2.FONT_HERSHEY_SCRIPT_COMPLEX 
-
-    textsize1 = cv2.getTextSize(text1, font, 1, 2)[0]
-    textsize2 = cv2.getTextSize(text2, font, 1, 2)[0]
-    textsize3 = cv2.getTextSize(text3, font, 1, 2)[0]
-    textsize4 = cv2.getTextSize(text4, font, 1, 2)[0]
-
-    textX1 = (img.shape[1] - textsize1[0]) / 2
-    textX2 = (img.shape[1] - textsize2[0]) / 2
-    textX3 = (img.shape[1] - textsize3[0]) / 2
-    textX4 = (img.shape[1] - textsize4[0]) / 2
-
-    cv2.putText(img, text1, (int(textX1), int(95) ), font, 1, (0,0,0), 1,cv2.LINE_AA)
-    cv2.putText(img, text2, (int(textX2), int(175) ), font, 1, (0,0,0), 1,cv2.LINE_AA)
-    cv2.putText(img, text3, (int(textX3), int(255) ), font, 1, (0,0,0), 1,cv2.LINE_AA)
-    cv2.putText(img, text4, (int(textX4), int(700) ), font, 1, (0,0,0), 1,cv2.LINE_AA)
-
-    png_img = cv2.imencode('.png', img)
-    b64_string = base64.b64encode(png_img[1]).decode('utf-8')
-    return render(request,'pass.html',{'img':b64_string})

@@ -19,15 +19,21 @@ from django.conf.urls.static import static
 from django.conf import settings
 import question.views
 import communication.views
+import accounts.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',question.views.question,name='question'),
+    path('question/',question.views.question,name='question'),
     path('comm/',communication.views.list,name='communication'),
-    path('comm_add/',communication.views.add,name='communication_add'),
+    path('add/',communication.views.add,name='communication_add'),
     path('comm/<int:question_id>',communication.views.detail,name='comm_detail'),
-    path('pass/<int:passnum>',question.views.question_pass,name='question_pass'),
-    path('fail',question.views.question_fail,name='question_fail')
-
+    path('pass/',accounts.views.question_pass,name='question_pass'),
+    path('fail/',accounts.views.fail,name='question_fail'),
+    path('', accounts.views.main, name='main'),
+    path('kakaoLoginLogic/', accounts.views.kakaoLoginLogic, name='login'),
+    path('kakaoLoginLogicRedirect/', accounts.views.kakaoLoginLogicRedirect, name='redirect'),
+    path('kakaoLogout/', accounts.views.kakaoLogout, name='logout'),
+    path('aboutus/', accounts.views.aboutus, name='aboutus'),
+    path('adoption/', accounts.views.adoption, name='adoption')
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

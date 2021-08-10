@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="/static/css/walwalnavbar.css" />
+<nav class="navbar navbar-static-top bg-white">
+    <div class="container">
+      <div class="navbar-brand brand_flex">
+        <div style="font-weight:bold;color: #3C64B1;font-size: 80%;"><a href="/" style="text-decoration: none;">ARE YOU READY?</a></div>
+        <div style="font-weight:bold;font-size: 120%; margin-top: 3px;">준비됐멍?</div>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="/question/" >반려견 입양 준비도 테스트</a></li>
+        <li><a href="/adoption">유기견 입양</a></li>
+        <li><a href="/aboutus/">About US</a></li> 
+        <li><a href="/comm/">커뮤니티</a></li>
+        {% if check %}
+          <li>
+          <form action="/kakaoLogout" method="GET">
+          <input type="submit" value="카카오 로그아웃" class="log">
+          
+          </form>
+          </li>
+        {% else %}
+          <li>
+            <form action="/kakaoLoginLogic" method="GET">
+            <input type="submit" value="카카오로그인" class="log">
+            </form>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>

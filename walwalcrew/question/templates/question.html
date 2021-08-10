@@ -8,36 +8,45 @@
   <title>준비됐멍?</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="/static/css/walwalcss.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script>
+    $.ajaxSetup({
+      headers: { "X-CSRFToken": '{{csrf_token}}' }
+    });
+  </script>
 </head>
 <body>
-  <nav class="navbar" style="margin-bottom: 3vmin;">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          <div class="brand_flex">
-            <div style="font-weight:bold;color: #3C64B1;font-size: 80%;margin-bottom: 5px;">ARE YOU READY?</div>
-            <div style="font-weight:bold;font-size: 120%;color: black;">준비됐멍?</div>
-          </div>
-        </a>
-      </div>
-      <div id="navbar" class="navbar-right collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">반려견 입양 준비도 테스트</a></li>
-          <li><a href="#">유기견 입양</a></li>
-          <li><a href="#">About US</a></li>
+  <link rel="stylesheet" href="/static/css/walwalcss.css" />
+  <link rel="stylesheet" href="/static/css/walwalnavbar.css" />
+  <nav class="navbar navbar-static-top bg-white">
+      <div class="container">
+        <div class="navbar-brand brand_flex">
+          <div style="font-weight:bold;color: #3C64B1;font-size: 80%;"><a href="/" style="text-decoration: none;">ARE YOU READY?</a></div>
+          <div style="font-weight:bold;font-size: 120%; margin-top: 3px;">준비됐멍?</div>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="/question/" >반려견 입양 준비도 테스트</a></li>
+          <li><a href="/adoption">유기견 입양</a></li>
+          <li><a href="/aboutus/">About US</a></li>
+          <li><a href="/comm/">커뮤니티</a></li>
+          {% if check %}
+            <li>
+            <form action="/kakaoLogout" method="GET">
+            <input type="submit" value="카카오 로그아웃" class="log">
+            
+            </form>
+            </li>
+          {% else %}
+            <li>
+              <form action="/kakaoLoginLogic" method="GET">
+              <input type="submit" value="카카오로그인" class="log">
+              </form>
+            </li>
+          {% endif %}
         </ul>
       </div>
-    </div>
-  </nav>
+    </nav>
   <main>
     <div class="controller">
       <button id="prev"onclick="prev()" style="position: absolute;top: 50%; left:0%;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 돌아가기</button>
@@ -116,10 +125,17 @@
       imgDangDang.style.left=percent_dog;
       if(numQuestion==mainTitle_list.length-1){
         if(score>15){
-          setTimeout(() => location.href='pass.html', 2000);   
+          $.ajax({
+            type: 'POST',
+            data: {
+            pass:'pass'},
+            success: function(){
+              setTimeout(() => location.href='/pass', 2000);
+            }
+          });
         }
         else{
-          setTimeout(() => location.href='fail.html', 2000);   
+          setTimeout(() => location.href='/fail', 2000);   
         }
       }
       else{
