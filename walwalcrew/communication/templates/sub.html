@@ -77,12 +77,22 @@
             </div> 
           </div>
           {% endfor %}
-          <button id="delete_button">글 삭제하기</button>
+          <button id="delete_button" onclick="del();">글 삭제하기</button>
         </div>
       </div>
     </div>
   </main>
   <script>
+    function del(){
+      $.ajax({
+        type: 'POST',
+        data: {
+        del:'asdfasdf'},
+        success:function(){
+          location.href="./"
+        }
+      });
+    }
     function like(id,like){
       $.ajax({
         type: 'POST',

@@ -136,12 +136,31 @@
         background-color:;
         color: #FFFFFF;
   }
+    
+    .editing_answer{
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+    }
     #add_answer{
         margin:1%;
+        width: 100%;
         border:2px solid ;
         box-sizing: border-box;
         background-color: #bbb7b7 ;
         border: 1px solid #bbb7b7;
+        font-weight: bold;
+        font-size: 2vmin;
+        padding: 1.5vmin;
+    }
+    #del_answer{
+        margin:1%;
+        width: 100%;
+        border:2px solid ;
+        box-sizing: border-box;
+        background-color: #ece7e7c5 ;
+        border: 1px solid #ece7e7c5;
         font-weight: bold;
         font-size: 2vmin;
         padding: 1.5vmin;
@@ -187,7 +206,10 @@
             <textarea placeholder="1번 옵션을 입력해주세요" id="0" cols="50" rows="1" ></textarea>
             <textarea placeholder="2번 옵션을 입력해주세요"id="1" cols="50" rows="1" ></textarea>
         </div>
-        <button type="button" id="add_answer" onclick="btn_click()">+</button>
+        <div class="editing_answer">
+            <button type="button" id="add_answer" onclick="btn_click()">+</button>
+            <button type="button" id="del_answer" onclick="del_btn_click()">-</button>
+        </div>
     </div>
 </div>
 <div hidden>
@@ -213,11 +235,11 @@
         edit2.value= $('textarea#title').val();
         for(var i=0;i<count;i++){
             var val=document.getElementById(i);        
-            if(i==count-1){
+            if(i==count-1 && val.value!=''){
                 edit.value=edit.value+val.value;
                 edit_answer.value=edit_answer.value+"0";
             }
-            else{
+            else if(val.value!=''){
                 edit.value=edit.value+val.value+"#";
                 edit_answer.value=edit_answer.value+"0#";
             }
@@ -244,8 +266,12 @@
             answer_class.appendChild(newtextarea); // btn을 document 의 body의 자식 노드로 추가한다
             count++;
         }
-        else{
-            alert("갯수 초과");
+    }
+    function del_btn_click(){
+        if(4>=count && count>=3){
+            count--;
+            var element = document.getElementById(count);
+            element.parentNode.removeChild(element);
         }
     }
 </script>

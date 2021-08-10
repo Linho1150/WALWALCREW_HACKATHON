@@ -63,6 +63,11 @@ def detail(request,question_id):
             vote.answer="#".join(tmpList)
             vote.save()
             return render(request,'sub.html',data)
+        
+        elif request.POST.get('del'):
+            page = question_list.objects.get(id=question_id)
+            page.delete()
+            return HttpResponseRedirect('/comm/')
     else:
         return render(request,'sub.html',data)
     
