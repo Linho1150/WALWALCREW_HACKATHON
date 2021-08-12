@@ -14,7 +14,7 @@ import base64
 from .models import authentication
 import string 
 import random 
-import datetime
+from datetime import datetime
 from django.shortcuts import get_object_or_404, render
 
 def aboutus(request):
@@ -136,7 +136,7 @@ def question_pass(request):
             result += random.choice(string_pool) 
 
         module_dir = os.path.dirname(__file__)
-        text1 = "DOG ADOPTION CERTIFICATE"
+        text1 = "Dog adoption certificate"
         text2 = datetime.today().strftime("%Y%m%d")
         text3 = result
         text4 = "WalWal Sailor"
@@ -162,5 +162,5 @@ def question_pass(request):
 
         png_img = cv2.imencode('.png', img)
         b64_string = base64.b64encode(png_img[1]).decode('utf-8')
-    return render(request,'pass.html',{'img':b64_string,"check":_context})
+    return render(request,'pass.html',{'img':b64_string,"check":_context['check']})
         
