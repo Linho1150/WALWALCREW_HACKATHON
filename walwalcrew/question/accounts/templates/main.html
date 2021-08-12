@@ -246,7 +246,7 @@
 
     <script>
 
-      var ws = new WebSocket('ws://127.0.0.1:8000');
+      var ws = new WebSocket('ws://walwalcrew.com/');
       ws.onopen = (event) => {
         let sendData = { event: 'open' }
         ws.send(JSON.stringify(sendData));

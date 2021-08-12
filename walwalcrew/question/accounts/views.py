@@ -34,14 +34,14 @@ def main(request):
 
 def kakaoLoginLogic(request):
     _restApiKey = '37c9aa7740e5099865e96d249270858f' # 입력필요
-    _redirectUrl = 'http://127.0.0.1:8000/kakaoLoginLogicRedirect/'
+    _redirectUrl = 'http://walwalcrew/kakaoLoginLogicRedirect/'
     _url = f'https://kauth.kakao.com/oauth/authorize?client_id={_restApiKey}&redirect_uri={_redirectUrl}&response_type=code'
     return redirect(_url)
 
 def kakaoLoginLogicRedirect(request):
     _qs = request.GET['code']
     _restApiKey = '37c9aa7740e5099865e96d249270858f' # 입력필요
-    _redirect_uri = 'http://127.0.0.1:8000/kakaoLoginLogicRedirect/'
+    _redirect_uri = 'http://walwalcrew.com/kakaoLoginLogicRedirect/'
     _url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={_restApiKey}&redirect_uri={_redirect_uri}&code={_qs}'
     _res = requests.post(_url)
     _result = _res.json()
