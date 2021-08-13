@@ -26,7 +26,8 @@ def add(request):
             post=question_list()
             post.cateogry= request.POST.get('cateogry')
             post.title= request.POST.get('title')
-            post.nickname= get(request)["email"]
+            post.nickname= get(request)["name"]
+            post.kakaotalkid= get(request)["id"]
             post.text= request.POST.get('text')
             post.answer= request.POST.get('answer')
             post.save()
@@ -78,14 +79,16 @@ def detail(request,question_id):
             return HttpResponse(vote.answer)
         
         elif request.POST.get('del'):
-            kakaomail=get(request)["email"]
-            pageinfo = question_list.objects.get(id=question_id).nickname
-            if kakaomail == pageinfo:
+            kakaomail=get(request)["id"]
+            pageinfo = question_list.objects.get(id=question_id).kakaotalkid
+            print(kakaomail)
+            print(pageinfo)
+            if str(kakaomail) == str(pageinfo):
                 page = question_list.objects.get(id=question_id)
                 page.delete()
                 return HttpResponseRedirect('/comm/')
             else:
-                return HttpResponseRedirect('/comm/'+question_id)
+                return HttpResponseRedirect('/comm/'+str(question_id))
         else:
             return render(request,'sub.html',data)
 

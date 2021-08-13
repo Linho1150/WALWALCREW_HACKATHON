@@ -6,9 +6,6 @@ from django.shortcuts import render
 from .models import question as question_model
 from django.core import serializers
 from django.shortcuts import get_object_or_404, render
-import requests
-import cv2
-import base64
 from .getProfile import get
 
 # Create your views here.

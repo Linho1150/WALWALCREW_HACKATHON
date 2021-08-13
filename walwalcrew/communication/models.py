@@ -9,6 +9,7 @@ class question_list(models.Model):
     text = models.CharField(max_length=5000)
     answer = models.CharField(max_length=5)
     date = models.DateField(auto_now_add=True, blank=True, null=True)
+    kakaotalkid = models.CharField(max_length=100, null=True)
 
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)

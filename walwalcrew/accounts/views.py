@@ -82,10 +82,6 @@ def kakaoLogout(request):
     _header = {
       'Authorization': f'bearer {_token}'
     }
-    # _url = 'https://kapi.kakao.com/v1/user/unlink'
-    # _header = {
-    #   'Authorization': f'bearer {_token}',
-    # }
     _res = requests.post(_url, headers=_header)
     _result = _res.json()
     if _result.get('id'):
