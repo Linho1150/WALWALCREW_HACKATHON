@@ -23,14 +23,17 @@ def add(request):
 
     if request.method == 'POST':
         if request.POST.get('title') and _context['check'] == True and request.POST.get('nickname') and request.POST.get('text') and request.POST.get('cateogry') and request.POST.get('answer'):
-            post=question_list()
-            post.cateogry= request.POST.get('cateogry')
-            post.title= request.POST.get('title')
-            post.nickname= get(request)["name"]
-            post.kakaotalkid= get(request)["id"]
-            post.text= request.POST.get('text')
-            post.answer= request.POST.get('answer')
-            post.save()
+            try:
+                post=question_list()
+                post.cateogry= request.POST.get('cateogry')
+                post.title= request.POST.get('title')
+                post.nickname= get(request)["name"]
+                post.kakaotalkid= get(request)["id"]
+                post.text= request.POST.get('text')
+                post.answer= request.POST.get('answer')
+                post.save()
+            except:
+                pass
             return redirect('/comm/')
         else:
             return render(request,'index.html',{"check":_context['check']})
@@ -46,13 +49,16 @@ def detail(request,question_id):
     data = {"questions": questions, "comment":comment, "check":_context['check']}
     if request.method == 'POST':
         if request.POST.get('text') and request.POST.get('nick') and _context['check'] == True:
-            post=Comment()
-            post.nickname= get(request)["name"]
-            post.text= request.POST.get('text')
-            post.question_id=question_list(id=question_id)
-            post.like=0
-            post.unlike=0
-            post.save()
+            try:
+                post=Comment()
+                post.nickname= get(request)["name"]
+                post.text= request.POST.get('text')
+                post.question_id=question_list(id=question_id)
+                post.like=0
+                post.unlike=0
+                post.save()
+            except:
+                pass
             return render(request,'sub.html',data)
 
         elif request.POST.get('finger_id') and request.POST.get('finger_text'):
@@ -79,15 +85,16 @@ def detail(request,question_id):
             return HttpResponse(vote.answer)
         
         elif request.POST.get('del'):
-            kakaomail=get(request)["id"]
-            pageinfo = question_list.objects.get(id=question_id).kakaotalkid
-            print(kakaomail)
-            print(pageinfo)
-            if str(kakaomail) == str(pageinfo):
-                page = question_list.objects.get(id=question_id)
-                page.delete()
-                return HttpResponseRedirect('/comm/')
-            else:
+            try:
+                kakaomail=get(request)["id"]
+                pageinfo = question_list.objects.get(id=question_id).kakaotalkid
+                if str(kakaomail) == str(pageinfo):
+                    page = question_list.objects.get(id=question_id)
+                    page.delete()
+                    return HttpResponseRedirect('/comm/')
+                else:
+                    return HttpResponseRedirect('/comm/'+str(question_id))
+            except:
                 return HttpResponseRedirect('/comm/'+str(question_id))
         else:
             return render(request,'sub.html',data)
